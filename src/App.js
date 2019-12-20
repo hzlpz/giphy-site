@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './css/main.css';
-import loader from './assets/loader.svg'
+import loader from './assets/loader.svg';
+import Gif from './Gif'
 
 const randomChoice = arr => {
   const randIndex = Math.floor(Math.random() * arr.length);
@@ -31,7 +32,9 @@ class App extends Component {
     this.state = {
       searchTerm: '',
       hintText: '',
-      gif: null
+      gif: null,
+      // we have an array of gifs
+      gifs: []
     };
   }
 
@@ -59,7 +62,11 @@ class App extends Component {
       this.setState((prevState, props) => ({
         ...prevState,
         // get the first resilt and put it in the state
-        gif: randomGif
+        gif: randomGif,
+        // here we use our spread to take the previous gifs and
+        // spread them out, and then add our new random gif
+        // onto the end
+        gifs: [...prevState.gifs, randomGif]
       }));
 
 // if our fetch fails, we catch it down here
@@ -111,11 +118,12 @@ class App extends Component {
         <Header />
         <div className="search grid">
           {/* images go here */}
-        {/* its only going to render our video when we have a gif in the state */ }
-        {gif && (
-          <video className="grid-item video" autoPlay loop src=
-          {gif.images.original.mp4} />
-        )}
+        {/* Our stack of gif images here */}
+        {/* Here we loop over our array of gif images of our state and we create lots of videos */}
+
+          {this.state.gifs.map(gif => (
+            <Gif {...gif}/>
+           ))}
 
           <input className="input grid-item" 
           placeholder="Type Something" 
