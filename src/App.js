@@ -80,7 +80,8 @@ class App extends Component {
         // spread them out, and then add our new random gif
         // onto the end
         gifs: [...prevState.gifs, randomGif],
-        loading: false
+        loading: false,
+        hintText: `Hit enter to see more ${searchTerm}`
 
       }));
 
@@ -91,16 +92,8 @@ class App extends Component {
         hintText: error,
         loading: false
       }));
-             
-      console.log(error);
     }
   };
-
-  // we can also write async methods into our components 
-  // that let us use the async/await style function
-
-
-
 
   // with create react app we can write methods as arrow
   //functions, meaning we don't need the constructor and bind
