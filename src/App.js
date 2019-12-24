@@ -142,6 +142,8 @@ class App extends Component {
       hintText: '',
       gifs: []
     }));
+    //her we grab the input and then focus the cursor back into it
+    this.textInput.focus();
   }
 
   render() {
@@ -164,6 +166,9 @@ class App extends Component {
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress}
           value={searchTerm}
+          ref={input => {
+            this.textInput = input;
+          } }
           />
         </div>
         {/* here we pass our userHint all of our state using a spread operator */}
