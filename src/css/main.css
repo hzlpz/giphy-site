@@ -27,6 +27,7 @@ button {
   cursor: pointer;
   outline: none;
   padding: 0;
+  text-align: center;
 }
 
 .page {
@@ -39,6 +40,8 @@ button {
 .header {
   line-height: 50px;
 }
+
+
 
 /* utils */
 .block {

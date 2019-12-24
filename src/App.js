@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './css/main.css';
-import loader from './assets/loader.svg';
+import loader from './images/loader.svg';
 import Gif from './Gif'
+import clearButton from './images/close-icon.svg';
 
 const randomChoice = arr => {
   const randIndex = Math.floor(Math.random() * arr.length);
@@ -9,9 +10,16 @@ const randomChoice = arr => {
 }
 
 
-const Header = () => (
+const Header = ({clearSearch, hasResults}) => (
   <div className="header-grid">
-    <h1 className="title">Jiffy</h1>
+    {/* if we have results, show the clear button, otherwise, show the title  */}
+    { hasResults ? (
+      <button onClick={clearSearch} className="clear">
+         <img src={clearButton} />
+      </button>
+    ) : (
+      <h1 className="title">Jiffy</h1>
+    )}
   </div>
 );
 
@@ -33,7 +41,6 @@ class App extends Component {
       searchTerm: '',
       loading: false,
       hintText: '',
-      gif: null,
       // we have an array of gifs
       gifs: []
     };
@@ -74,8 +81,7 @@ class App extends Component {
       
       this.setState((prevState, props) => ({
         ...prevState,
-        // get the first resilt and put it in the state
-        gif: randomGif,
+      
         // here we use our spread to take the previous gifs and
         // spread them out, and then add our new random gif
         // onto the end
@@ -126,12 +132,24 @@ class App extends Component {
     }
   }
 
+  // here we set our state by clearing everything out and making 
+  // default again (like in our originalv state)
+
+  clearSearch = () => {
+    this.setState((prevState, props) => ({
+      ...prevState,
+      searchTerm: '',
+      hintText: '',
+      gifs: []
+    }));
+  }
 
   render() {
-    const { searchTerm, gif} = this.state;
+    const { searchTerm, gifs} = this.state;
+    const hasResults = gifs.length;
     return (
       <div className="page">
-        <Header />
+        <Header clearSearch={this.clearSearch} hasResults={hasResults}/>
         <div className="search grid">
           {/* images go here */}
         {/* Our stack of gif images here */}
